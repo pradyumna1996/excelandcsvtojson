@@ -89,7 +89,7 @@ public class ExcelCSVToJsonController {
 
         List<Object> data = excelCSVToJsonService.excelToCSV(uploadedFile);
 
-        System.out.println("CSV file contains the Data:\n" + data);
+
 
         if(!(data ==null)){
 
@@ -150,10 +150,10 @@ public class ExcelCSVToJsonController {
 
 
         if(!(data ==null)){
-
+            inputStream.close();
             return  MyResponseHandler.generateResponse(Boolean.TRUE, HttpStatus.OK, uploadedFile.getOriginalFilename() , uploadedFile.getContentType(),  uploadedFile.getSize(), data);
         }
-
+        inputStream.close();
         return  MyResponseHandler.generateResponse(Boolean.TRUE, HttpStatus.OK, uploadedFile.getOriginalFilename() , uploadedFile.getContentType(),  uploadedFile.getSize(), data);
 
 

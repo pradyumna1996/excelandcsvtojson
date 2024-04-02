@@ -20,11 +20,12 @@ public class ExcelCSVToJsonServiceImpl implements ExcelCSVToJsonService {
 
     /**
      * Implementation of Excel To JSON
+     *
      * @param uploadedFile parameter as Multipart File
      * @return list
      */
     @Override
-    public List<Object> excelToJson(MultipartFile uploadedFile) {
+    public List excelToJson(MultipartFile uploadedFile) {
 
         ExcelCSVConverter converter = new ExcelCSVConverter();
 

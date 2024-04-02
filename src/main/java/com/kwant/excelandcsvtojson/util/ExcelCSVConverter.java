@@ -83,6 +83,8 @@ public class ExcelCSVConverter {
                 return jsonObjectList;
             }
 
+            inputStream.close();
+            workbook.close();
             return null;
 
         } catch (IOException e) {

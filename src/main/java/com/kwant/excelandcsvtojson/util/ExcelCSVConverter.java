@@ -258,8 +258,11 @@ public class ExcelCSVConverter {
 
     }
 
-
-
+    /**
+     * A method that determines type of cell value
+     * @param cell A Cell is passed
+     * @return Value in String
+     */
     private String getCellValueAsString(Cell cell) {
         if (cell == null) {
             return null;

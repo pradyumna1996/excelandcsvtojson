@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * A Global Exception Handler Class that Is Advice
+ * Extends Response Entity Exceptions
+ */
 @ControllerAdvice
 public class ExcelCsvJsonControllerAdvice extends ResponseEntityExceptionHandler {
 

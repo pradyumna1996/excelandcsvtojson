@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
@@ -17,11 +16,25 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * This is a Core class that has the main logic to convert the excel to Json and CSV.
+ * Also, CSV to JSON is also implemented.
+ * Both Functions consuming file with file input and input stream is done.
+ */
+
 @Service
 public class ExcelCSVConverter {
 
 
+
     // 1. Excel To Json
+
+    /**
+     * Converts Excel To JSON
+     * @param file Input Excel File Using MultipartFile
+     * @return json list
+     */
+
     public List<ObjectNode> excelToJson(MultipartFile file) {
 
 
@@ -79,7 +92,14 @@ public class ExcelCSVConverter {
 
     }
 
+
     // 2. excel to csv completed
+
+    /**
+     * Converts EXCEL to CSV
+     * @param file Upload Excel File using Multipart File
+     * @return CSV fike
+     */
     public List excelToCSV(MultipartFile file) {
 
         try (InputStream inputStream = file.getInputStream();
@@ -132,7 +152,16 @@ public class ExcelCSVConverter {
     }
 
 
+
+
     // 3. csv to json completed
+
+    /**
+     * Converts CSV to JSON
+     * @param file Upload File and Consumed Using Multipart File
+     * @return list csv
+     */
+
     public List csvToJson(MultipartFile file) {
 
 
@@ -167,80 +196,12 @@ public class ExcelCSVConverter {
     }
 
 
-    private String getCellValueAsString(Cell cell) {
-        if (cell == null) {
-            return null;
-        }
-        return switch (cell.getCellType()) {
-            case STRING -> cell.getStringCellValue();
-            case NUMERIC -> {
-                DataFormatter dataFormatter = new DataFormatter();
-                yield dataFormatter.formatCellValue(cell);
-            }
-            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
-            case FORMULA -> cell.getCellFormula();
-            default -> null;
-        };
-
-    }
-
-
-    //AddingCustomException
- /*   public List<ObjectNode> excelToJsonCustomException(MultipartFile file) {
-
-
-        try (InputStream inputStream = file.getInputStream();
-             Workbook workbook = new XSSFWorkbook(inputStream)) {
-
-            Sheet sheet = workbook.getSheetAt(0); // Assuming only one sheet
-            Iterator<Row> rowIterator = sheet.iterator();
-
-
-
-            if (!rowIterator.hasNext()) {
-                return null;
-
-            }
-
-            List<ObjectNode> jsonObjectList = new ArrayList<>();
-            Row headerRow = rowIterator.next(); // Assuming the first row is the header row
-
-
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-
-                ObjectNode jsonObject = new ObjectMapper().createObjectNode();
-
-                for (int i = 0; i < headerRow.getLastCellNum(); i++) {
-                    Cell cell = row.getCell(i);
-                    if (cell != null) {
-                        String header = headerRow.getCell(i).getStringCellValue();
-                        String cellValue = getCellValueAsString(cell);
-                        if (cellValue != null && !cellValue.isEmpty()) {
-                            jsonObject.put(header, cellValue);
-                        }
-                    }
-                }
-
-
-
-                if (jsonObject.size() > 0) {
-                    jsonObjectList.add(jsonObject);
-                }
-            }
-
-            if (!jsonObjectList.isEmpty()) {
-                return jsonObjectList;
-            }
-            return null;
-
-        } catch (Exception e) {
-            e.getMessage();
-            throw null;
-        }
-    }
-*/
-
+    /**
+     * Converts Excel To JSON
+     * Uses Input Stream as Parameter
+     * @param inputStream Input Stream
+     * @return json response
+     */
 
     // 1 . Extended Using Input Stream To Consume File
     public List<ObjectNode> excelToJsonAsInputStream(InputStream inputStream) {
@@ -297,6 +258,24 @@ public class ExcelCSVConverter {
 
     }
 
+
+
+    private String getCellValueAsString(Cell cell) {
+        if (cell == null) {
+            return null;
+        }
+        return switch (cell.getCellType()) {
+            case STRING -> cell.getStringCellValue();
+            case NUMERIC -> {
+                DataFormatter dataFormatter = new DataFormatter();
+                yield dataFormatter.formatCellValue(cell);
+            }
+            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
+            case FORMULA -> cell.getCellFormula();
+            default -> null;
+        };
+
+    }
 
 
 }

@@ -5,41 +5,50 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.*;
-import java.util.Iterator;
 import java.util.List;
 
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+
+/**
+ * A Test Class that is used for testing
+ */
 
 
 @ExtendWith(MockitoExtension.class)
 public class ExcelCSVConverterTest {
 
+    /**
+     * Workbook is mocked
+     */
     @Mock
     private Workbook workbook;
 
+    /**
+     * Sheet is mocked
+     */
     @Mock
     private Sheet sheet;
 
+    /**
+     * Mocks are injected
+     */
     @InjectMocks
     private ExcelCSVConverter excelCsvConverter;
 
 
+    /**
+     * Excel to JSON Check the response is as expected or not
+     * @throws IOException if some exception found
+     */
     @Test
     void excelToJson_shouldReturnJsonList() throws IOException {
 
@@ -82,6 +91,10 @@ public class ExcelCSVConverterTest {
     }
 
 
+    /**
+     * Creation of Dummy Excel File
+     * @return Excel File For Testing
+     */
     public static MultipartFile createExcelFile() {
         try {
             // create workbook and sheet

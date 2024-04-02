@@ -7,12 +7,22 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
 import java.util.List;
 
+/**
+ * Here all the methods of service interface (ExcelCSVToJsonService) is implemented
+ */
+
 @Service
 public class ExcelCSVToJsonServiceImpl implements ExcelCSVToJsonService {
 
 
 
     // 1. Excel To JSON
+
+    /**
+     * Implementation of Excel To JSON
+     * @param uploadedFile parameter as Multipart File
+     * @return list
+     */
     @Override
     public List<Object> excelToJson(MultipartFile uploadedFile) {
 
@@ -31,6 +41,13 @@ public class ExcelCSVToJsonServiceImpl implements ExcelCSVToJsonService {
 
 
     // 2. Excel to CSV
+
+    /**
+     * Implementation of Excel To CSV
+     * @param uploadedFile Upload Excel File
+     * @return csv
+     */
+
     @Override
     public List excelToCSV(MultipartFile uploadedFile) {
 
@@ -51,6 +68,12 @@ public class ExcelCSVToJsonServiceImpl implements ExcelCSVToJsonService {
 
 
     // 3. CS TO Json
+
+    /**
+     * Implementation of CSV To JSON
+     * @param file Upload CSV File
+     * @return list json
+     */
     @Override
     public List csvToJson(MultipartFile file) {
 
@@ -65,7 +88,11 @@ public class ExcelCSVToJsonServiceImpl implements ExcelCSVToJsonService {
     }
 
 
-
+    /**
+     * Converts EXCEL to JSON using InputStream
+     * @param inputStream Input Stream file
+     * @return json list
+     */
 
     @Override
     public List<Object> excelToJsonConsumeInputStream(InputStream inputStream) {

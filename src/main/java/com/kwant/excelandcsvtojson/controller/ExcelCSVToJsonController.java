@@ -15,12 +15,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+/**
+ * This is the Rest Controller for converting EXCEL to JSON, CSV
+ * And, CSV to Json is also implemented
+ * Contains both methods that Consumes File using Multipart nad InputStream
+ */
 
 @RestController
 public class ExcelCSVToJsonController {
 
 
+    /**
+     * Object Declaration
+     */
     private final ExcelCSVToJsonService excelCSVToJsonService;
+
+    /**
+     *Constructor Injection
+     * @param excelCSVToJsonService Service Class injected
+     */
 
     public ExcelCSVToJsonController(ExcelCSVToJsonService excelCSVToJsonService) {
         this.excelCSVToJsonService = excelCSVToJsonService;
@@ -28,7 +41,12 @@ public class ExcelCSVToJsonController {
 
 
     //1. Converting excel to json
-
+    /**
+     * Post Request
+     * Converting Excel To JSON
+     * @param uploadedFile Multipart File
+     * @return response using custom response handler
+     */
     @PostMapping("/spreadsheets/parse")
     public ResponseEntity<Object> convertToJsonUploadFileCustomResponseAsListConsumingException(@RequestParam("file") MultipartFile uploadedFile){
 
@@ -57,6 +75,14 @@ public class ExcelCSVToJsonController {
 
 
     // 2. Converting excel to CSV
+
+    /**
+     * Post Request
+     * Converting Excel To CSV
+     * @param uploadedFile Multipart File
+     * @return CSV
+     */
+
     @PostMapping("/spreadsheets/parse/csv")
     public ResponseEntity<Object> convertExcelToCsv(@RequestParam("file") MultipartFile uploadedFile) throws Exception {
 
@@ -76,7 +102,15 @@ public class ExcelCSVToJsonController {
     }
 
 
+
     // 3. Converting CSV TO JSON
+
+    /**
+     * Post Request
+     * Converting CSV To JSON
+     * @param uploadedFile Multipart File
+     * @return response using custom response handler
+     */
     @PostMapping("/convert/csv/json")
     public ResponseEntity<Object>     convertToJsonUploadCSVFileCustomResponseAsListConsumingFile(@RequestPart("file") MultipartFile uploadedFile) throws Exception {
 
@@ -91,7 +125,12 @@ public class ExcelCSVToJsonController {
     }
 
 
-
+    /**
+     * Post Request
+     * Converting Excel To JSON using Input Stream
+     * @param uploadedFile Multipart File
+     * @return json response using custom response handler
+     */
 
     @PostMapping("/spreadsheets/parse/stream")
     public ResponseEntity<Object> convertToJsonUploadFileCustomResponseAsListConsumingInputStreamThrowingException(@RequestParam("file") MultipartFile uploadedFile) throws IOException {
